@@ -1,0 +1,8 @@
+agot_ll_rule = {
+	default = ll_a_a
+	ll_random = {}
+	ll_a_a = {}
+    ll_a_d = {}
+    ll_d_a = {}
+    ll_d_d = {}
+}

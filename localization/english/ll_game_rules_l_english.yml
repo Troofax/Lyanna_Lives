@@ -1,0 +1,23 @@
+﻿l_english:
+ ##### LL Game Rule Title
+ rule_agot_ll_rule:0 "#G L#!yanna #G L#!ives"
+
+ ##### LL Random Setting
+ setting_ll_random:0 "#low Disabled#!"
+ setting_ll_random_desc:0 "@alert_icon! #alert_trial This setting will remove the influence Lyanna Lives has on the Tower of Joy and only your #R AGOT:#! #medium Story Outcomes#! setting will affect the result.#!"
+
+ ##### LL alive_alive Setting
+ setting_ll_a_a:0 "#high Both survive#!"
+ setting_ll_a_a_desc:0 "#I If the Tower of Joy event chain is capable of resolving Lyanna's pregnancy:#!\nBoth Lyanna and Jon #bold will#! survive the Tower of Joy."
+
+ ##### LL dead_alive Setting
+ setting_ll_d_a:0 "Only Jon"
+ setting_ll_d_a_desc:0 "#I If the Tower of Joy event chain is capable of resolving Lyanna's pregnancy:#!\nOnly Jon will survive the Tower of Joy. #N This is the historical outcome.#! \n#weak #R Disclaimer: This setting has been the least reliable in testing."
+
+ ##### LL alive_dead Setting
+ setting_ll_a_d:0 "Only Lyanna"
+ setting_ll_a_d_desc:0 "#I If the Tower of Joy event chain is capable of resolving Lyanna's pregnancy:#!\nOnly Lyanna will survive the Tower of Joy."
+
+ ##### LL dead_dead Setting
+ setting_ll_d_d:0 "Both perish"
+ setting_ll_d_d_desc:0 "#I If the Tower of Joy event chain is capable of resolving Lyanna's pregnancy:#!\nBoth Lyanna and Jon #bold will not#! survive the Tower of Joy. #weak #N You monster!#!"

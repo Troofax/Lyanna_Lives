@@ -1,0 +1,292 @@
+﻿# Lyanna Lives
+
+# Birth Outcome Modifiers
+agot_scenario_ll_get_birth_outcome = {
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = agot_scenario_rr_get_birth_outcome_fired
+			}
+		}
+		set_global_variable = agot_scenario_rr_get_birth_outcome_fired
+		if = {
+			limit = { has_game_rule = ll_random }
+			random_list = { # all chances are 50%
+				0 = { # Lyanna alive, baby alive, child is male
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:alive_alive
+					}
+					modifier = {
+						add = agot_nonhistoric_outcome_4
+					}
+				}
+				0 = { # Lyanna dead, baby alive, child is male
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:dead_alive
+					}
+					modifier = {
+						add = agot_historic_outcome_4
+					}
+				}
+				0 = { # Lyanna alive, baby dead
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:alive_dead
+					}
+					modifier = {
+						add = agot_nonhistoric_outcome_4
+					}
+				}
+				0 = { # Lyanna dead, baby dead
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:dead_dead
+					}
+					modifier = {
+						add = agot_nonhistoric_outcome_4
+					}
+				}
+			}
+			debug_log = "Lyanna Lives: Random chance modifiers used."
+		}
+		if = {
+			limit = { has_game_rule = ll_a_a }
+			random_list = {
+				100 = { # Both alive
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:alive_alive
+					}
+					modifier = {
+						add = 1000
+					}
+				}
+			}
+			debug_log = "Lyanna Lives: alive_alive modifiers used."
+		}
+		if = {
+			limit = { has_game_rule = ll_d_a }
+			random_list = {
+				100 = { # Lyanna dead, baby alive
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:dead_alive
+					}
+					modifier = {
+						add = 1000
+					}
+				}
+			}
+			debug_log = "Lyanna Lives: dead_alive modifiers used."
+		}
+		if = {
+			limit = { has_game_rule = ll_a_d }
+			random_list = {
+				100 = { # Lyanna alive, baby dead
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:alive_dead
+					}
+					modifier = {
+						add = 1000
+					}
+				}
+			}
+			debug_log = "Lyanna Lives: alive_dead modifiers used."
+		}
+		if = {
+			limit = { has_game_rule = ll_d_d }
+			random_list = {
+				100 = { # Lyanna dead, baby dead
+					set_variable = {
+						name = agot_rr_lyanna_birth_outcome
+						value = flag:dead_dead
+					}
+					modifier = {
+						add = 1000
+					}
+				}
+			}
+			debug_log = "Lyanna Lives: dead_dead modifiers used."
+		}
+	}
+	else = {
+		if = {
+			limit = { has_global_variable = agot_scenario_rr_get_birth_outcome_fired }
+		}
+	}
+}
+
+# Create Baby Snow with Increased Chance of Boy
+agot_scenario_ll_toj_create_baby_snow_effect = {
+	create_character = {
+		age = 0
+		random_traits = no
+		#mother = character:Stark_5
+		real_father = character:Targaryen_3
+		location = character:Stark_5.location
+		gender_female_chance = {
+			value = agot_nonhistoric_outcome_4
+		}
+		faith = faith:old_gods_south
+		culture = culture:northman
+		dynasty = none
+		trait = bastard
+		save_scope_as = baby_snow
+	}
+	hidden_effect = {
+		scope:baby_snow = {
+			if = {
+				limit = { is_male = yes }
+				change_first_name = "Jon"
+				add_character_flag = is_jon_snow
+			}
+			if = {
+				limit = { is_female = yes }
+				change_first_name = "Jeyne"
+				add_character_flag = is_jeyne_snow
+			}
+			copy_inheritable_appearance_from = character:Stark_67
+			give_nickname = nick_snow
+			set_real_mother = character:Stark_5
+			make_trait_inactive = dark_brown_hair
+			make_trait_inactive = grey_eyes
+		}
+		title:e_the_iron_throne = {
+			set_variable = {
+				name = agot_faegon_jon_snow_char
+				value = scope:baby_snow
+			}
+			set_variable = {
+				name = agot_faegon_jae_birth_year
+				value = current_year
+			}
+		}
+		if = {
+			limit = { exists = character:Stark_5.liege_or_court_owner }
+			character:Stark_5.liege_or_court_owner = { add_courtier ?= scope:baby_snow }
+		}
+		debug_log = "Lyanna Lives: baby_snow is created:"
+		debug_log_date = yes
+		debug_log_scopes = yes
+	}
+}
+
+# Find and Generate Lyanna Birth Outcome
+agot_scenario_ll_get_baby_birth_lyanna_death_effect = {
+	if = { # LL Random Game Rule
+		limit = { has_game_rule = ll_random }
+		if = {
+			limit = { scope:agot_lyanna_preg_outcome = flag:alive_alive }
+			agot_scenario_rr_toj_create_baby_snow_effect = yes
+			debug_log = "Lyanna Lives disabled: alive_alive finalized."
+		}
+		if = {
+			limit = { scope:agot_lyanna_preg_outcome = flag:alive_dead }
+			debug_log = "Lyanna Lives disabled: alive_dead finalized."
+		}
+		if = {
+			limit = { scope:agot_lyanna_preg_outcome = flag:dead_alive }
+			agot_scenario_rr_toj_create_baby_snow_effect = yes
+			character:Stark_5 = { death = { death_reason = death_childbirth } }
+			
+			title:k_the_westerlands.holder = { # Cersei/Robert Marriage
+				trigger_event = {
+					id = agot_events_rr_minor.0111
+					days = { 5 10 }
+				}
+			}
+
+			set_variable = {
+				name	= agot_rr_cersei_marriage
+				value	= flag:fired
+			}
+			debug_log = "Lyanna Lives disabled: dead_alive finalized."
+		}
+		if = {
+			limit = { scope:agot_lyanna_preg_outcome = flag:dead_dead }
+			character:Stark_5 = { death = { death_reason = death_childbirth } }
+
+			title:k_the_westerlands.holder = { # Cersei/Robert Marriage
+				trigger_event = {
+					id = agot_events_rr_minor.0111
+					days = { 5 10 }
+				}
+			}
+
+			set_variable = {
+				name	= agot_rr_cersei_marriage
+				value	= flag:fired
+			}
+			debug_log = "Lyanna Lives disabled: dead_dead finalized."
+		}
+		debug_log = "Lyanna Lives: LL disabled, AGOT birth outcome completed."
+	}
+	if = { # LL alive_alive Game Rule
+		limit = {
+			AND = {
+				has_game_rule = ll_a_a
+				scope:agot_lyanna_preg_outcome = flag:alive_alive
+			}
+		}
+		agot_scenario_ll_toj_create_baby_snow_effect = yes
+		debug_log = "Lyanna Lives: alive_alive outcome finalized."
+	}
+	if = { # LL alive_dead Game Rule
+		limit = {
+			AND = {
+				has_game_rule = ll_a_d
+				scope:agot_lyanna_preg_outcome = flag:alive_dead
+			}
+		}
+		debug_log = "Lyanna Lives: alive_dead outcome finalized."
+	}
+	if = { # LL dead_alive Game Rule
+		limit = {
+			AND = {
+				has_game_rule = ll_d_a
+				scope:agot_lyanna_preg_outcome = flag:dead_alive
+			}
+		}
+		agot_scenario_ll_toj_create_baby_snow_effect = yes
+
+		character:Stark_5 = { death = { death_reason = death_childbirth } }
+
+		title:k_the_westerlands.holder = { # Cersei/Robert Marriage
+			trigger_event = {
+				id = agot_events_rr_minor.0111
+				days = { 5 10 }
+			}
+		}
+		
+		set_variable = {
+			name	= agot_rr_cersei_marriage
+			value	= flag:fired
+		}
+		debug_log = "Lyanna Lives: dead_alive outcome finalized."
+	}
+	if = { # LL dead_dead Game Rule
+		limit = {
+			AND = {
+				has_game_rule = ll_d_d
+				scope:agot_lyanna_preg_outcome = flag:dead_dead
+			}
+		}
+		character:Stark_5 = { death = { death_reason = death_childbirth } }
+
+		title:k_the_westerlands.holder = { # Cersei/Robert Marriage
+			trigger_event = {
+				id = agot_events_rr_minor.0111
+				days = { 5 10 }
+			}
+		}
+
+		set_variable = {
+			name	= agot_rr_cersei_marriage
+			value	= flag:fired
+		}
+		debug_log = "Lyanna Lives: dead_dead outcome finalized."
+	}
+}
