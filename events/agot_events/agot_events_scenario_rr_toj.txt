@@ -1639,6 +1639,17 @@ agot_scenario_rr_toj.0010 = {
 		agot_rr_remove_yearly_1010_abductor_flag = yes
 
 		if = {
+			limit = { scope:baby_snow ?= { is_alive = yes } }
+
+			scope:baby_snow.house.house_head ?= {
+				add_hook_no_toast = {
+					type = house_head_hook
+					target = scope:baby_snow
+				}
+			}
+		}
+
+		if = {
 			limit = { character:Stark_5 = { is_alive = yes } }
 
 			agot_scenario_rr_toj_release_lyanna_from_prison = yes
@@ -1743,6 +1754,13 @@ agot_scenario_rr_toj.0011 = {
 	after = {
 		clear_variable_list = possible_characters
 		remove_variable = si_selected_character
+
+		scope:baby_snow.house.house_head ?= {
+			add_hook_no_toast = {
+				type = house_head_hook
+				target = scope:baby_snow
+			}
+		}
 
 		if = {
 			limit = { has_variable_list = agot_rr_toj_companions }
@@ -2595,6 +2613,13 @@ agot_scenario_rr_toj.0018 = {
 				set_house = character:Targaryen_3.house
 			}
 		}
+
+		scope:baby_snow.house.house_head ?= {
+			add_hook_no_toast = {
+				type = house_head_hook
+				target = scope:baby_snow
+			}
+		}
 	}
 }
 ###
@@ -3046,7 +3071,6 @@ agot_scenario_rr_toj.0061 = {
 
 # Kingsguard start plot
 agot_scenario_rr_toj.0100 = {
-	scope = none
 	hidden = yes
 
 	trigger = {
@@ -3437,7 +3461,15 @@ agot_scenario_rr_toj.0200 = {
 				}
 			}
 		}
+
 		hidden_effect = {
+			scope:baby_snow.house.house_head = {
+				add_hook_no_toast = {
+					type = house_head_hook
+					target = scope:baby_snow
+				}
+			}
+
 			if = {
 				limit = { character:Stark_5 = { is_spouse_of_even_if_dead = character:Targaryen_3 } }
 				agot_scenario_rr_rhaegar_baby_snow_trueborn = yes

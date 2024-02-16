@@ -937,62 +937,6 @@ story_agot_scenario_rr = {
 			}
 		}
 
-		# Rhaegar's plot successful
-		triggered_effect = {
-			trigger = {
-				title:e_the_iron_throne = {
-					holder = character:Targaryen_1
-				}
-				character:Targaryen_3 = { is_alive = yes }
-				character:Targaryen_1 = {
-					is_alive = yes
-					is_imprisoned_by = character:Targaryen_3
-				}
-			}
-			effect = {
-				character:Targaryen_3 = { trigger_event = agot_scenario_rr_ha.0030 }
-			}
-		}
-
-		# Rhaegar's plot failure
-		triggered_effect = {
-			trigger = {
-				title:e_the_iron_throne = {
-					holder = character:Targaryen_1
-				}
-				character:Targaryen_3 = {
-					NOT = { is_at_war_with = character:Targaryen_1 }
-					is_alive = yes
-					any_scheme = {
-						scheme_type = abduct
-						scheme_target = character:Targaryen_1
-
-						is_scheme_exposed = yes
-					}
-				}
-				character:Targaryen_1 = { is_alive = yes }
-			}
-			effect = {
-				character:Targaryen_3 = { trigger_event = agot_scenario_rr_ha.0031 }
-			}
-		}
-
-		# Cleanup Harrenhal Aftermath
-		triggered_effect = {
-			trigger = {
-				always = no # TODO
-			}
-			effect = {
-				if = {
-					limit = { has_variable_list = agot_ha_know_about_plot_list }
-					every_in_list = {
-						variable = agot_ha_know_about_plot_list
-						root = { remove_list_variable = { name = agot_ha_know_about_plot_list target = prev } }
-					}
-				}
-			}
-		}
-
 		# Tywin decides to start plot or join Loyalists | AI only
 		triggered_effect = {
 			trigger = {
@@ -1040,7 +984,7 @@ story_agot_scenario_rr = {
 							agot_mw_fetch_crown_scope = yes
 							root.var:usurper_war = { # fetch scope mw_rebel_story
 								random_war_attacker = {
-									limit = { mw_rebel_leader_trigger = yes }
+									limit = { agot_mw_rebel_leader_trigger = yes }
 
 									random_owned_story = {
 										limit = { story_type = story_agot_mw_rebel }
