@@ -1604,9 +1604,8 @@ agot_scenario_rr_toj.0010 = {
 	option = { #Baby is dead, Rhaegar brings Lyanna back to court as lover
 		name = agot_scenario_rr_toj.rhaegar.e
 		trigger = {
-			OR = {
-				scope:agot_lyanna_preg_outcome = flag:alive_dead
-			}
+			this = character:Targaryen_3
+			scope:agot_lyanna_preg_outcome = flag:alive_dead
 		}
 		add_courtier ?= character:Stark_5
 		hidden_effect = { set_relation_lover = { reason = lover_longing target = character:Stark_5 } }
@@ -1623,15 +1622,21 @@ agot_scenario_rr_toj.0010 = {
 	option = { #Baby is dead, Rhaegar sends Lyanna home
 		name = agot_scenario_rr_toj.rhaegar.f
 		trigger = {
-			OR = {
-				scope:agot_lyanna_preg_outcome = flag:alive_dead
-			}
+			this = character:Targaryen_3
+			scope:agot_lyanna_preg_outcome = flag:alive_dead
 		}
 		if = {
 			limit = {
 				title:c_winterfell.holder.house ?= character:Stark_5.house
 			}
 			title:c_winterfell.holder = { trigger_event = agot_scenario_rr_toj.0600 }
+		}
+	}
+
+	option = { #All dead
+		name = agot_scenario_rr_toj.rhaegar.g
+		trigger = {
+			scope:agot_lyanna_preg_outcome = flag:dead_dead
 		}
 	}
 
@@ -1709,7 +1714,7 @@ agot_scenario_rr_toj.0011 = {
 				count > 1
 			}
 		}
-		gui = "event_window_character_selection"
+		gui = "event_window_character_selection_short"
 		container = "custom_widgets_container"
 	}
 
@@ -2582,6 +2587,13 @@ agot_scenario_rr_toj.0018 = {
 				title:c_winterfell.holder.house ?= character:Stark_5.house
 			}
 			title:c_winterfell.holder = { trigger_event = agot_scenario_rr_toj.0600 }
+		}
+	}
+
+	option = { #All dead
+		name = agot_scenario_rr_toj.rhaegar.g
+		trigger = {
+			scope:agot_lyanna_preg_outcome = flag:dead_dead
 		}
 	}
 
