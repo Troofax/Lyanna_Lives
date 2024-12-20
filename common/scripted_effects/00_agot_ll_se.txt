@@ -149,7 +149,7 @@ agot_scenario_ll_toj_create_baby_snow_effect = {
 				add_character_flag = is_jeyne_snow
 			}
 			copy_inheritable_appearance_from = character:Stark_67
-			give_nickname = nick_snow
+			make_trait_inactive = surname_snow
 			set_real_mother = character:Stark_5
 			make_trait_inactive = dark_brown_hair
 			make_trait_inactive = grey_eyes
@@ -191,7 +191,7 @@ agot_scenario_ll_get_baby_birth_lyanna_death_effect = {
 			limit = { scope:agot_lyanna_preg_outcome = flag:dead_alive }
 			agot_scenario_rr_toj_create_baby_snow_effect = yes
 			character:Stark_5 = { death = { death_reason = death_childbirth } }
-			
+
 			title:k_the_westerlands.holder = { # Cersei/Robert Marriage
 				trigger_event = {
 					id = agot_events_rr_minor.0111
@@ -260,7 +260,7 @@ agot_scenario_ll_get_baby_birth_lyanna_death_effect = {
 				days = { 5 10 }
 			}
 		}
-		
+
 		set_variable = {
 			name	= agot_rr_cersei_marriage
 			value	= flag:fired

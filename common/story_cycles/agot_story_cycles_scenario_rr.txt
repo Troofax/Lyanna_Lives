@@ -106,22 +106,20 @@ story_agot_scenario_rr = {
 
 		#IT starts with no MAA for some reason
 		character:Targaryen_1 = {
-			spawn_army = {
-				men_at_arms = {
-					type = trebuchet
-					stacks = 4
-				}
-				men_at_arms = {
-					type = armored_footmen
-					stacks = 4
-				}
-				men_at_arms = {
-					type = bowmen
-					stacks = 4
-				}
-				levies = 2000
-				location = character:Targaryen_1.location
-				name = event_troop_default_name
+			create_maa_regiment = {
+				type = trebuchet 
+				check_can_recruit = no
+				size = 4
+			}
+			create_maa_regiment = {
+				type = armored_footmen  
+				check_can_recruit = no
+				size = 4
+			}
+			create_maa_regiment = {
+				type = bowmen  
+				check_can_recruit = no
+				size = 4
 			}
 		}
 	}
@@ -721,10 +719,12 @@ story_agot_scenario_rr = {
 					is_at_same_location = character:Targaryen_3
 					is_in_army = yes
 					is_alive = yes
+					NOT = { is_current_dragonrider_warfare = yes }
 				}
 				character:Targaryen_3 = {
 					is_in_army = yes
 					is_alive = yes
+					NOT = { is_current_dragonrider_warfare = yes }
 				}
 			}
 			effect = {
@@ -1071,7 +1071,7 @@ story_agot_scenario_rr = {
 						any_in_de_jure_hierarchy = {
 							tier = tier_county
 							holder = {
-								house = character:Stark_3.house
+								house = dynasty:dynn_Stark.dynasty_founder.house
 								is_adult = yes
 								NOT = { this = character:Stark_5 }
 							}
@@ -1116,7 +1116,7 @@ story_agot_scenario_rr = {
 								any_in_de_jure_hierarchy = {
 									tier = tier_county
 									holder = {
-										house = character:Stark_3.house
+										house = dynasty:dynn_Stark.dynasty_founder.house
 										is_adult = yes
 										NOT = { this = character:Stark_5 }
 									}
@@ -1141,7 +1141,7 @@ story_agot_scenario_rr = {
 								any_in_de_jure_hierarchy = {
 									tier = tier_county
 									holder = {
-										house = character:Stark_3.house
+										house = dynasty:dynn_Stark.dynasty_founder.house
 										is_adult = yes
 										NOT = { this = character:Stark_5 }
 									}
@@ -1153,7 +1153,7 @@ story_agot_scenario_rr = {
 								limit = {
 									tier = tier_county
 									holder = {
-										house = character:Stark_3.house
+										house = dynasty:dynn_Stark.dynasty_founder.house
 										is_adult = yes
 										NOT = { this = character:Stark_5 }
 									}
