@@ -141,18 +141,17 @@ agot_scenario_ll_toj_create_baby_snow_effect = {
 			if = {
 				limit = { is_male = yes }
 				change_first_name = "Jon"
-				add_character_flag = is_jon_snow
 			}
 			if = {
 				limit = { is_female = yes }
-				change_first_name = "Jeyne"
-				add_character_flag = is_jeyne_snow
+				change_first_name = "Joanna"
 			}
 			copy_inheritable_appearance_from = character:Stark_67
-			make_trait_inactive = surname_snow
+			make_trait_inactive = surname_snow #Gives bastard surname
 			set_real_mother = character:Stark_5
 			make_trait_inactive = dark_brown_hair
 			make_trait_inactive = grey_eyes
+			make_trait_inactive = is_stark_7
 		}
 		title:e_the_iron_throne = {
 			set_variable = {
